@@ -1,0 +1,55 @@
+openapi: 3.0.1
+info:
+  title: Password Validation
+  description: 'This application is the solve of challenge
+    at [ITI challenge](https://github.com/itidigital/backend-challenge).'
+  contact:
+    email: rudgee@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Find out more about
+  url: https://github.com/itidigital/backend-challenge
+servers:
+  - url: https://rudge.tech
+paths:
+  /password/validate:
+    post:
+      tags:
+        - password
+      summary: Receive the passaword and validate by rules
+      operationId: validaPassword
+      requestBody:
+        description: Pet object that needs to be added to the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Password'
+        required: true
+      responses:
+        400:
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+components:
+  schemas:
+    Password:
+      type: object
+      properties:
+        value:
+          type: string
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+
