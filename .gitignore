@@ -29,6 +29,7 @@ hs_err_pid*
 .settings/
 out/
 build/
+lib/
 
 #Gradle
 .gradle/
