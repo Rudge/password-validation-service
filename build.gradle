@@ -41,6 +41,10 @@ sourceSets {
     }
 }
 
+test() {
+    useJUnitPlatform()
+}
+
 task componentTest(type: Test) {
     description = 'Runs the integration tests.'
     group = 'verification'
@@ -50,6 +54,7 @@ task componentTest(type: Test) {
 }
 
 check.dependsOn componentTest
+componentTest.mustRunAfter test
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
@@ -62,8 +67,11 @@ dependencies {
     api "org.webjars:swagger-ui:$swagger_version"
 
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junit_version"
+    testImplementation "org.junit.jupiter:junit-jupiter:$junit_version"
 
+    componentTestImplementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     componentTestImplementation "org.junit.jupiter:junit-jupiter-api:$junit_version"
+    componentTestRuntime "org.junit.jupiter:junit-jupiter:$junit_version"
     componentTestImplementation "com.konghq:unirest-java:$unirest_version"
 }
 
