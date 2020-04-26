@@ -67,6 +67,7 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junit_version"
     testImplementation "org.junit.jupiter:junit-jupiter:$junit_version"
 
+    componentTestImplementation sourceSets.main.compileClasspath
     componentTestImplementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     componentTestImplementation "org.junit.jupiter:junit-jupiter-api:$junit_version"
     componentTestRuntime "org.junit.jupiter:junit-jupiter:$junit_version"

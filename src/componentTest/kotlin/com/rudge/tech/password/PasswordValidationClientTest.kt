@@ -1,13 +1,31 @@
 package com.rudge.tech.password
 
+import com.rudge.tech.password.config.AppConfig
 import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import org.hamcrest.Matchers.equalTo
 import org.hamcrest.Matchers.hasItems
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 
 class PasswordValidationClientTest {
+    companion object {
+        val app = AppConfig.setup()
+
+        @BeforeAll
+        @JvmStatic
+        fun beforeAll() {
+            app.start()
+        }
+
+        @AfterAll
+        @JvmStatic
+        fun afterAll() {
+            app.stop()
+        }
+    }
 
     @Test
     fun `given one string, should call the endpoint password validate and return status code 200 with response password valid`() {
