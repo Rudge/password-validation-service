@@ -13,6 +13,6 @@ class AtLeastOneCapitalLetterPasswordRuleTest {
 
     @Test
     fun `given a string should validate it doesn't have one capital letter`() {
-        Assertions.assertTrue(AtLeastOneCapitalLetterPasswordRule().test("a"))
+        Assertions.assertFalse(AtLeastOneCapitalLetterPasswordRule().test("a"))
     }
 }

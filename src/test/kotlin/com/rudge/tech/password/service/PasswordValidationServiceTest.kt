@@ -21,7 +21,7 @@ class PasswordValidationServiceTest {
 
     @Test
     fun `given one blank password should validate this password with error and return false`() {
-        val password = ""
+        val password = "        "
         val success = PasswordValidationService().validate(password)
         Assertions.assertFalse(success)
     }

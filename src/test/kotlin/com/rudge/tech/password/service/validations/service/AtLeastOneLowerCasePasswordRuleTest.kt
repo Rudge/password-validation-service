@@ -13,6 +13,6 @@ class AtLeastOneLowerCasePasswordRuleTest {
 
     @Test
     fun `given a string should validate it doesn't have one lower case char`() {
-        Assertions.assertTrue(AtLeastOneLowerCasePasswordRule().test("A"))
+        Assertions.assertFalse(AtLeastOneLowerCasePasswordRule().test("A"))
     }
 }

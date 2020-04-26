@@ -13,6 +13,6 @@ class SizeNineCharsOrMorePasswordRuleTest {
 
     @Test
     fun `given a string should validate it doesn't have 9 chars`() {
-        Assertions.assertTrue(SizeNineCharsOrMorePasswordRule().test("12345678"))
+        Assertions.assertFalse(SizeNineCharsOrMorePasswordRule().test("12345678"))
     }
 }

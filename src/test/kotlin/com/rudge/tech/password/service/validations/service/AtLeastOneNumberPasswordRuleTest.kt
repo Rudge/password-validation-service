@@ -13,6 +13,6 @@ class AtLeastOneNumberPasswordRuleTest {
 
     @Test
     fun `given a string should validate it doesn't have one number`() {
-        Assertions.assertTrue(AtLeastOneNumberPasswordRule().test("a"))
+        Assertions.assertFalse(AtLeastOneNumberPasswordRule().test("a"))
     }
 }

@@ -13,6 +13,6 @@ class AtLeastOneSpecialCharPasswordRuleTest {
 
     @Test
     fun `given a string should validate it doesn't have special char`() {
-        Assertions.assertTrue(AtLeastOneSpecialCharPasswordRule().test("a"))
+        Assertions.assertFalse(AtLeastOneSpecialCharPasswordRule().test("a"))
     }
 }
