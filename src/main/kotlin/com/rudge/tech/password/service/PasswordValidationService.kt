@@ -1,9 +1,8 @@
 package com.rudge.tech.password.service
 
-import com.rudge.tech.password.service.validations.*
+import com.rudge.tech.password.service.validations.PasswordRule
 
-class PasswordValidationService {
-    private val passwordRules: List<PasswordRule> = getRules()
+class PasswordValidationService(private val passwordRules: List<PasswordRule>) {
 
     fun validate(password: String) =
             password.takeIf { it.isNotBlank() }
@@ -11,14 +10,6 @@ class PasswordValidationService {
 
     fun validateReturnMessages(password: String) =
             password.takeIf { it.isNotBlank() }
-                    ?.let { passwordRules.map { it.takeIf { it.test(password) }?.invalidMessage } }
-
-
-    private fun getRules() = listOf(
-            SizeNineCharsOrMorePasswordRule(),
-            AtLeastOneNumberPasswordRule(),
-            AtLeastOneLowerCasePasswordRule(),
-            AtLeastOneCapitalLetterPasswordRule(),
-            AtLeastOneSpecialCharPasswordRule()
-    )
+                    ?.let { passwordRules.map { it.takeIf { !it.test(password) }?.invalidMessage } }
+                    ?.filterNotNull()
 }
