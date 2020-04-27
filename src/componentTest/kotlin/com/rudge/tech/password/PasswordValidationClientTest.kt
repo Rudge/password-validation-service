@@ -1,6 +1,7 @@
 package com.rudge.tech.password
 
 import com.rudge.tech.password.config.AppConfig
+import io.restassured.http.ContentType
 import io.restassured.module.kotlin.extensions.Given
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
@@ -12,7 +13,7 @@ import org.junit.jupiter.api.Test
 
 class PasswordValidationClientTest {
     companion object {
-        val app = AppConfig.setup()
+        private val app = AppConfig.setup()
 
         @BeforeAll
         @JvmStatic
@@ -30,39 +31,45 @@ class PasswordValidationClientTest {
     @Test
     fun `given one string, should call the endpoint password validate and return status code 200 with response password valid`() {
         Given {
-            port(7000)
-            body("""{"password":"AbTp9!foo"}""")
+            port(app.port())
+            contentType(ContentType.JSON)
+            accept(ContentType.JSON)
+            body("""{"value":"AbTp9!foo"}""")
         } When {
             post("/password/validate")
         } Then {
             statusCode(200)
-            body("valid", equalTo("true"))
+            body("valid", equalTo(true))
         }
     }
 
     @Test
     fun `given one string, should call the endpoint password validate and return status code 400 with password not valid`() {
         Given {
-            port(7000)
-            body("""{"password":"AAAbbbCc"}""")
+            port(app.port())
+            contentType(ContentType.JSON)
+            accept(ContentType.JSON)
+            body("""{"value":"AAAbbbCc"}""")
         } When {
             post("/password/validate")
         } Then {
             statusCode(200)
-            body("valid", equalTo("false"))
+            body("valid", equalTo(false))
         }
     }
 
     @Test
     fun `given one string, should call the endpoint password validate and return status code 400 with invalid definitions of password`() {
         Given {
-            port(7000)
-            body("""{"password":"AAAbbbCc"}""")
+            port(app.port())
+            contentType("application/vnd.password_details+json")
+            accept(ContentType.JSON)
+            body("""{"value":"AAAbbbCc"}""")
         } When {
             post("/password/validate")
         } Then {
-            statusCode(200)
-            body("errors.messages",
+            statusCode(400)
+            body("messages",
                     hasItems(
                             "Must have at least 1 number!",
                             "Must have at least 1 special char!",
