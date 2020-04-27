@@ -9,7 +9,5 @@ class PasswordValidationService(private val passwordRules: List<PasswordRule>) {
                     ?.let { passwordRules.all { it.test(password) } } ?: false
 
     fun validateReturnMessages(password: String) =
-            password.takeIf { it.isNotBlank() }
-                    ?.let { passwordRules.map { it.takeIf { !it.test(password) }?.invalidMessage } }
-                    ?.filterNotNull()
+            password.let { passwordRules.map { it.takeIf { !it.test(password) }?.invalidMessage } }.filterNotNull()
 }

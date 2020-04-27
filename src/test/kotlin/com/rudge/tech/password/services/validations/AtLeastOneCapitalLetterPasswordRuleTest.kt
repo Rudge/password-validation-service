@@ -1,4 +1,4 @@
-package com.rudge.tech.password.service.validations.service
+package com.rudge.tech.password.services.validations
 
 import com.rudge.tech.password.service.validations.AtLeastOneCapitalLetterPasswordRule
 import org.junit.jupiter.api.Assertions
