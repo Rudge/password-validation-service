@@ -1,6 +1,6 @@
 # password-validation-service
 
-Aplicação de exemplo da solução do desafio do ITI.
+Aplicação de exemplo da solução de um desafio.
 
 Irei sumarizar a estrutura da aplicação aqui e listar os principais motivos pela decisão.
 
