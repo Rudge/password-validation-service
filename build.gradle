@@ -83,6 +83,14 @@ jacoco {
 }
 
 jacocoTestReport {
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it,
+                    exclude: ['com/rudge/tech/password/config',
+                    ]
+            )
+        }))
+    }
     reports {
         html.enabled true
         html.destination file("${buildDir}/jacoco")

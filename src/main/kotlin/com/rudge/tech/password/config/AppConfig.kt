@@ -4,6 +4,7 @@ import com.rudge.tech.password.controllers.PasswordValidationController
 import com.rudge.tech.password.service.PasswordValidationService
 import com.rudge.tech.password.service.validations.*
 import io.javalin.Javalin
+import io.javalin.apibuilder.ApiBuilder.post
 import org.koin.core.KoinComponent
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
@@ -12,7 +13,7 @@ import org.koin.dsl.module
 
 object AppConfig : KoinComponent {
     private val passwordValidationController by inject<PasswordValidationController>()
-    
+
     fun setup(): Javalin {
         startKoin {
             modules(appModule)
@@ -25,8 +26,17 @@ object AppConfig : KoinComponent {
             event.serverStopping {
                 stopKoin()
             }
-        }.post("/validate", passwordValidationController::validate)
+        }.routes { routes() }
                 .apply { this.server()?.serverPort = getKoin().getProperty("server_port") ?: 7000 }
+    }
+
+    private fun routes() {
+        post("/validate") { ctx ->
+            ctx.takeIf {
+                ctx.header("Accept") == "application/vnd.password_details+json"
+            }?.apply { passwordValidationController.validateWithErrorResponse(ctx) }
+                    ?: passwordValidationController.validate(ctx)
+        }
     }
 }
 

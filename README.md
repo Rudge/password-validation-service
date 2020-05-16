@@ -49,4 +49,4 @@ Pode executar os CURLs.
 
 ``curl -v http://localhost:7000/password/validate --data '{"value":"AbTp9!foo"}'``
 
-`` curl -v http://localhost:7000/password/validate --data '{"value":"AAAbbbCc"}' -H 'Content-Type:application/vnd.password_details+json'``
+`` curl -v http://localhost:7000/password/validate --data '{"value":"AAAbbbCc"}' -H Accept:application/vnd.password_details+json'``

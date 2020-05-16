@@ -62,8 +62,8 @@ class PasswordValidationClientTest {
     fun `given one string, should call the endpoint password validate and return status code 400 with invalid definitions of password`() {
         Given {
             port(app.port())
-            contentType("application/vnd.password_details+json")
-            accept(ContentType.JSON)
+            accept("application/vnd.password_details+json")
+            contentType(ContentType.JSON)
             body("""{"value":"AAAbbbCc"}""")
         } When {
             post("/password/validate")
